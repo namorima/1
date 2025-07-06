@@ -117,6 +117,25 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .link-list li {
+            margin: 10px 0;
+        }
+
+        .link-list a {
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .link-list a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -128,38 +147,44 @@
             <div class="break dot2"></div>
             <div class="break dot3"></div>
         </div>
-        <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
+        <p id="redirectMessage">We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
+        <ul class="link-list" id="linkList" style="display: none;"></ul>
     </div>
 
     <script src="/1/redirect.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Dapatkan parameter dari path (1?=drive) atau path dalam subdirektori (1/1?=drive)
-            let linkParam = '';
-            const path = window.location.pathname.substring(1); // Contoh: "1?=drive" atau "1/1?=drive"
-            if (path.startsWith('1?=')) {
-                linkParam = path.substring(3); // Ekstrak "drive"
-            } else if (path.startsWith('1/1?=')) {
-                linkParam = path.substring(5); // Ekstrak "drive" dari "1/1?=drive"
-            } else {
-                // Cuba query string (?1=drive) sebagai sandaran
-                const urlParams = new URLSearchParams(window.location.search);
-                linkParam = urlParams.get('1') || '';
-            }
+            // Dapatkan parameter dari query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const linkParam = urlParams.get('1');
 
-            // Dapatkan senarai URL dari redirect.js
-            const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io/1/'; // URL lalai ke /1/
-
-            // Tetapkan URL untuk pautan manual
+            // Dapatkan elemen DOM
+            const redirectMessage = document.getElementById('redirectMessage');
             const redirectLink = document.getElementById('redirectLink');
-            if (redirectLink) {
-                redirectLink.href = targetUrl;
-            } else {
-                console.error('Element with id "redirectLink" not found');
-            }
+            const linkList = document.getElementById('linkList');
 
-            // Lakukan redirect automatik
-            window.location.href = targetUrl;
+            if (linkParam) {
+                // Jika ada parameter, lakukan redirect
+                const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io/1/';
+                if (redirectLink) {
+                    redirectLink.href = targetUrl;
+                }
+                window.location.href = targetUrl;
+            } else {
+                // Jika tiada parameter, paparkan senarai pautan
+                redirectMessage.style.display = 'none';
+                linkList.style.display = 'block';
+
+                // Isi senarai pautan daripada redirectLinks
+                for (const [key, url] of Object.entries(redirectLinks)) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)} Link`; // Tajuk seperti "Drive Link", "File Link"
+                    li.appendChild(a);
+                    linkList.appendChild(li);
+                }
+            }
         });
     </script>
 
