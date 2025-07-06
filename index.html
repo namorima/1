@@ -133,27 +133,34 @@
 
     <script src="/1/redirect.js"></script>
     <script>
-        // Dapatkan parameter dari path (1?=drive) atau path dalam subdirektori (1/1?=drive)
-        let linkParam = '';
-        const path = window.location.pathname.substring(1); // Contoh: "1?=drive" atau "1/1?=drive"
-        if (path.startsWith('1?=')) {
-            linkParam = path.substring(3); // Ekstrak "drive"
-        } else if (path.startsWith('1/1?=')) {
-            linkParam = path.substring(5); // Ekstrak "drive" dari "1/1?=drive"
-        } else {
-            // Cuba query string (?1=drive) sebagai sandaran
-            const urlParams = new URLSearchParams(window.location.search);
-            linkParam = urlParams.get('1') || '';
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dapatkan parameter dari path (1?=drive) atau path dalam subdirektori (1/1?=drive)
+            let linkParam = '';
+            const path = window.location.pathname.substring(1); // Contoh: "1?=drive" atau "1/1?=drive"
+            if (path.startsWith('1?=')) {
+                linkParam = path.substring(3); // Ekstrak "drive"
+            } else if (path.startsWith('1/1?=')) {
+                linkParam = path.substring(5); // Ekstrak "drive" dari "1/1?=drive"
+            } else {
+                // Cuba query string (?1=drive) sebagai sandaran
+                const urlParams = new URLSearchParams(window.location.search);
+                linkParam = urlParams.get('1') || '';
+            }
 
-        // Dapatkan senarai URL dari redirect.js
-        const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io/1/'; // URL lalai ke /1/
+            // Dapatkan senarai URL dari redirect.js
+            const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io/1/'; // URL lalai ke /1/
 
-        // Tetapkan URL untuk pautan manual
-        document.getElementById('redirectLink').href = targetUrl;
+            // Tetapkan URL untuk pautan manual
+            const redirectLink = document.getElementById('redirectLink');
+            if (redirectLink) {
+                redirectLink.href = targetUrl;
+            } else {
+                console.error('Element with id "redirectLink" not found');
+            }
 
-        // Lakukan redirect automatik
-        window.location.href = targetUrl;
+            // Lakukan redirect automatik
+            window.location.href = targetUrl;
+        });
     </script>
 
     <footer>
