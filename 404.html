@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just a moment...</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100">
+    <style>
+        body {
+            background: #222;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #4a8df8;
+            font-family: 'Raleway', cursive;
+            font-weight: 100;
+        }
+
+        .content-wrapper {
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            color: #4a8df8;
+            font-family: 'Raleway', cursive;
+            font-weight: 100;
+            font-stretch: normal;
+            font-size: 3em;
+            margin-bottom: 40px;
+        }
+        a {
+            color: #4a8df8;
+            font-family: 'Raleway', cursive;
+        }
+        p {
+            margin-top: 20px;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 2px;
+            margin: -30px auto 0 auto;
+            background: #4a8df8;
+        }
+        .line {
+            display: none;
+        }
+        .break {
+            position: absolute;
+            background: #222;
+            width: 6px;
+            height: 2px;
+        }
+
+        .dot1 {
+            -webkit-animation: loading 2s infinite;
+            -moz-animation: loading 2s infinite;
+            -ms-animation: loading 2s infinite;
+            -o-animation: loading 2s infinite;
+            animation: loading 2s infinite;
+        }
+        .dot2 {
+            -webkit-animation: loading 2s 0.5s infinite;
+            -moz-animation: loading 2s 0.5s infinite;
+            -ms-animation: loading 2s 0.5s infinite;
+            -o-animation: loading 2s 0.5s infinite;
+            animation: loading 2s 0.5s infinite;
+        }
+        .dot3 {
+            -webkit-animation: loading 2s 1s infinite;
+            -moz-animation: loading 2s 1s infinite;
+            -ms-animation: loading 2s 1s infinite;
+            -o-animation: loading 2s 1s infinite;
+            animation: loading 2s 1s infinite;
+        }
+
+        @keyframes "loading" {
+            from { left: 0; }
+            to { left: calc(100% - 6px); }
+        }
+        @-moz-keyframes loading {
+            from { left: 0; }
+            to { left: calc(100% - 6px); }
+        }
+        @-webkit-keyframes "loading" {
+            from { left: 0; }
+            to { left: calc(100% - 6px); }
+        }
+        @-ms-keyframes "loading" {
+            from { left: 0; }
+            to { left: calc(100% - 6px); }
+        }
+        @-o-keyframes "loading" {
+            from { left: 0; }
+            to { left: calc(100% - 6px); }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.8em;
+            font-family: 'Raleway', cursive;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <br><br><br>
+        <h1><strong>Just a moment...</strong></h1>
+        <div class="slider">
+            <div class="break dot1"></div>
+            <div class="break dot2"></div>
+            <div class="break dot3"></div>
+        </div>
+        <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
+    </div>
+
+    <script src="redirect.js"></script>
+    <script>
+        // Dapatkan parameter dari path (1?=drive) atau query string (?1=drive)
+        let linkParam = '';
+        const path = window.location.pathname.substring(1); // Contoh: "1?=drive"
+        if (path.startsWith('1?=')) {
+            linkParam = path.substring(3); // Ekstrak "drive"
+        } else {
+            // Cuba query string (?1=drive) sebagai sandaran
+            const urlParams = new URLSearchParams(window.location.search);
+            linkParam = urlParams.get('1') || '';
+        }
+
+        // Dapatkan senarai URL dari redirect.js
+        const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io'; // URL lalai
+
+        // Tetapkan URL untuk pautan manual
+        document.getElementById('redirectLink').href = targetUrl;
+
+        // Lakukan redirect automatik
+        window.location.href = targetUrl;
+    </script>
+
+    <footer>
+        Made with love from Akmal @ 2025
+    </footer>
+</body>
+</html>
