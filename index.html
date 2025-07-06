@@ -10,33 +10,57 @@
         /* CSS yang anda berikan untuk reka bentuk baharu */
         body {
             background: #222;
-            margin: 40px 50px;
+            /* Menggunakan flexbox untuk memusatkan kandungan utama */
+            display: flex;
+            flex-direction: column; /* Susun elemen secara menegak */
+            justify-content: center; /* Pusatkan kandungan secara menegak */
+            align-items: center; /* Pusatkan kandungan secara mendatar */
+            min-height: 100vh; /* Pastikan ia mengambil sekurang-kurangnya ketinggian viewport penuh */
+            overflow-x: hidden; /* Mengelakkan scrollbar mendatar pada skrin kecil */
+            margin: 0; /* Buang margin lalai body */
+            padding: 20px; /* Tambah padding untuk jarak di tepi skrin */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+
             color: #4a8df8;
             font-family: 'Raleway', cursive;
             font-weight: 100;
         }
+
+        /* Pembungkus kandungan utama untuk kawalan responsif */
+        .content-wrapper {
+            text-align: center; /* Pusatkan teks di dalam pembungkus */
+            max-width: 500px; /* Lebar maksimum untuk desktop */
+            width: 90%; /* Lebar responsif untuk skrin kecil */
+            margin-bottom: 60px; /* Jarak dari footer */
+        }
+
         h1 {
             color: #4a8df8;
             font-family: 'Raleway', cursive;
             font-weight: 100;
             font-stretch: normal;
-            font-size: 3em;
+            font-size: 3em; /* Saiz fon relatif */
+            margin-bottom: 40px; /* Jarak bawah ditambah untuk lebih ruang */
         }
         a {
             color: #4a8df8;
             font-family: 'Raleway', cursive;
         }
-        .slider {
-            position: absolute;
-            width: 400px;
-            height: 2px;
-            margin-top: -30px;
+        p {
+            margin-top: 20px; /* Jarak atas untuk perenggan */
         }
-        .line {
-            position: absolute;
-            background: #4a8df8;
-            width: 400px;
+
+        .slider {
+            position: relative; /* Tukar kepada relatif kepada parent (.content-wrapper) */
+            width: 100%; /* Ambil lebar penuh parent */
+            max-width: 400px; /* Hadkan lebar maksimum slider */
             height: 2px;
+            margin: -30px auto 0 auto; /* Pusatkan secara mendatar, kekalkan margin-top */
+            background: #4a8df8; /* Ini menjadikan slider itu sendiri sebagai garisan */
+        }
+        /* Sembunyikan div.line asal kerana .slider kini berfungsi sebagai garisan */
+        .line {
+            display: none;
         }
         .break {
             position: absolute;
@@ -44,6 +68,7 @@
             width: 6px;
             height: 2px;
         }
+
         /* Animasi untuk titik-titik bergerak */
         .dot1 {
             -webkit-animation: loading 2s infinite;
@@ -70,37 +95,53 @@
         /* Keyframes untuk animasi 'loading' */
         @keyframes "loading" {
             from { left: 0; }
-            to { left: 400px; }
+            to { left: calc(100% - 6px); } /* Bergerak sehingga hujung slider, tolak lebar dot */
         }
         @-moz-keyframes loading {
             from { left: 0; }
-            to { left: 400px; }
+            to { left: calc(100% - 6px); }
         }
         @-webkit-keyframes "loading" {
             from { left: 0; }
-            to { left: 400px; }
+            to { left: calc(100% - 6px); }
         }
         @-ms-keyframes "loading" {
             from { left: 0; }
-            to { left: 400px; }
+            to { left: calc(100% - 6px); }
         }
         @-o-keyframes "loading" {
             from { left: 0; }
-            to { left: 400px; }
+            to { left: calc(100% - 6px); }
+        }
+
+        /* Gaya untuk footer */
+        footer {
+            position: absolute; /* Letakkan footer di bahagian bawah viewport */
+            bottom: 20px; /* Jarak dari bawah */
+            width: 100%; /* Ambil lebar penuh */
+            text-align: center; /* Pusatkan teks */
+            color: #aaa; /* Warna teks yang lebih lembut */
+            font-size: 0.8em; /* Saiz fon yang lebih kecil */
+            font-family: 'Raleway', cursive; /* Kekalkan fon yang sama */
+            padding: 0 20px; /* Padding mendatar untuk mengelakkan teks melekat di tepi */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
         }
     </style>
 </head>
 <body>
-    <!-- Menambah jarak atas seperti yang diminta -->
-    <br><br><br>
-    <h1>Just a moment...</h1>
-    <div class="slider">
-        <div class="line"></div>
-        <div class="break dot1"></div>
-        <div class="break dot2"></div>
-        <div class="break dot3"></div>
+    <!-- Pembungkus kandungan utama untuk responsif -->
+    <div class="content-wrapper">
+        <!-- Menambah jarak atas seperti yang diminta -->
+        <br><br><br>
+        <h1>Just a moment...</h1>
+        <div class="slider">
+            <!-- div.line telah dibuang kerana .slider kini berfungsi sebagai garisan -->
+            <div class="break dot1"></div>
+            <div class="break dot2"></div>
+            <div class="break dot3"></div>
+        </div>
+        <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
     </div>
-    <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
 
     <!-- Skrip untuk penghalaan automatik dan pautan manual -->
     <script src="redirect.js"></script>
@@ -117,5 +158,10 @@
             })
             .catch(error => console.error('Error fetching redirect URL:', error));
     </script>
+
+    <!-- Footer baharu -->
+    <footer>
+        Made with love from Akmal @ 2025
+    </footer>
 </body>
 </html>
