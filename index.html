@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Just a moment...</title>
-    <!-- Memuatkan fon Raleway seperti yang diminta dalam CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100">
     <style>
-        /* CSS yang anda berikan untuk reka bentuk baharu */
         body {
             background: #222;
             display: flex;
@@ -135,9 +133,10 @@
 
     <script src="redirect.js"></script>
     <script>
-        // Dapatkan parameter '1' dari query string
-        const urlParams = new URLSearchParams(window.location.search);
-        const linkParam = urlParams.get('1');
+        // Dapatkan bahagian path URL selepas domain (contoh: "1?=drive")
+        const path = window.location.pathname.substring(1); // Buang "/" awal
+        // Ekstrak nilai selepas "1?=" (contoh: "drive" dari "1?=drive")
+        const linkParam = path.startsWith('1?=') ? path.substring(3) : '';
 
         // Dapatkan senarai URL dari redirect.js
         // redirectLinks ditakrifkan dalam redirect.js
