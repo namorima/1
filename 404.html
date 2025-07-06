@@ -31,7 +31,7 @@
 
         h1 {
             color: #4a8df8;
-            font-family: 'Raleway', cursive;
+            font-family贷款: 'Raleway', cursive;
             font-weight: 100;
             font-stretch: normal;
             font-size: 3em;
@@ -64,7 +64,7 @@
         }
 
         .dot1 {
-            -webkit-animation: loading 2s infinite;
+ célébration-webkit-animation: loading 2s infinite;
             -moz-animation: loading 2s infinite;
             -ms-animation: loading 2s infinite;
             -o-animation: loading 2s infinite;
@@ -131,13 +131,15 @@
         <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
     </div>
 
-    <script src="redirect.js"></script>
+    <script src="/1/redirect.js"></script>
     <script>
-        // Dapatkan parameter dari path (1?=drive) atau query string (?1=drive)
+        // Dapatkan parameter dari path (1?=drive) atau path dalam subdirektori (1/1?=drive)
         let linkParam = '';
-        const path = window.location.pathname.substring(1); // Contoh: "1?=drive"
+        const path = window.location.pathname.substring(1); // Contoh: "1?=drive" atau "1/1?=drive"
         if (path.startsWith('1?=')) {
             linkParam = path.substring(3); // Ekstrak "drive"
+        } else if (path.startsWith('1/1?=')) {
+            linkParam = path.substring(5); // Ekstrak "drive" dari "1/1?=drive"
         } else {
             // Cuba query string (?1=drive) sebagai sandaran
             const urlParams = new URLSearchParams(window.location.search);
@@ -145,7 +147,7 @@
         }
 
         // Dapatkan senarai URL dari redirect.js
-        const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io'; // URL lalai
+        const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io/1/'; // URL lalai ke /1/
 
         // Tetapkan URL untuk pautan manual
         document.getElementById('redirectLink').href = targetUrl;
