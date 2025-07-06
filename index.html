@@ -10,28 +10,25 @@
         /* CSS yang anda berikan untuk reka bentuk baharu */
         body {
             background: #222;
-            /* Menggunakan flexbox untuk memusatkan kandungan utama */
             display: flex;
-            flex-direction: column; /* Susun elemen secara menegak */
-            justify-content: center; /* Pusatkan kandungan secara menegak */
-            align-items: center; /* Pusatkan kandungan secara mendatar */
-            min-height: 100vh; /* Pastikan ia mengambil sekurang-kurangnya ketinggian viewport penuh */
-            overflow-x: hidden; /* Mengelakkan scrollbar mendatar pada skrin kecil */
-            margin: 0; /* Buang margin lalai body */
-            padding: 20px; /* Tambah padding untuk jarak di tepi skrin */
-            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
-
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
             color: #4a8df8;
             font-family: 'Raleway', cursive;
             font-weight: 100;
         }
 
-        /* Pembungkus kandungan utama untuk kawalan responsif */
         .content-wrapper {
-            text-align: center; /* Pusatkan teks di dalam pembungkus */
-            max-width: 500px; /* Lebar maksimum untuk desktop */
-            width: 90%; /* Lebar responsif untuk skrin kecil */
-            margin-bottom: 60px; /* Jarak dari footer */
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            margin-bottom: 60px;
         }
 
         h1 {
@@ -39,26 +36,25 @@
             font-family: 'Raleway', cursive;
             font-weight: 100;
             font-stretch: normal;
-            font-size: 3em; /* Saiz fon relatif */
-            margin-bottom: 40px; /* Jarak bawah ditambah untuk lebih ruang */
+            font-size: 3em;
+            margin-bottom: 40px;
         }
         a {
             color: #4a8df8;
             font-family: 'Raleway', cursive;
         }
         p {
-            margin-top: 20px; /* Jarak atas untuk perenggan */
+            margin-top: 20px;
         }
 
         .slider {
-            position: relative; /* Tukar kepada relatif kepada parent (.content-wrapper) */
-            width: 100%; /* Ambil lebar penuh parent */
-            max-width: 400px; /* Hadkan lebar maksimum slider */
+            position: relative;
+            width: 100%;
+            max-width: 400px;
             height: 2px;
-            margin: -30px auto 0 auto; /* Pusatkan secara mendatar, kekalkan margin-top */
-            background: #4a8df8; /* Ini menjadikan slider itu sendiri sebagai garisan */
+            margin: -30px auto 0 auto;
+            background: #4a8df8;
         }
-        /* Sembunyikan div.line asal kerana .slider kini berfungsi sebagai garisan */
         .line {
             display: none;
         }
@@ -69,7 +65,6 @@
             height: 2px;
         }
 
-        /* Animasi untuk titik-titik bergerak */
         .dot1 {
             -webkit-animation: loading 2s infinite;
             -moz-animation: loading 2s infinite;
@@ -92,10 +87,9 @@
             animation: loading 2s 1s infinite;
         }
 
-        /* Keyframes untuk animasi 'loading' */
         @keyframes "loading" {
             from { left: 0; }
-            to { left: calc(100% - 6px); } /* Bergerak sehingga hujung slider, tolak lebar dot */
+            to { left: calc(100% - 6px); }
         }
         @-moz-keyframes loading {
             from { left: 0; }
@@ -114,28 +108,24 @@
             to { left: calc(100% - 6px); }
         }
 
-        /* Gaya untuk footer */
         footer {
-            position: absolute; /* Letakkan footer di bahagian bawah viewport */
-            bottom: 20px; /* Jarak dari bawah */
-            width: 100%; /* Ambil lebar penuh */
-            text-align: center; /* Pusatkan teks */
-            color: #aaa; /* Warna teks yang lebih lembut */
-            font-size: 0.8em; /* Saiz fon yang lebih kecil */
-            font-family: 'Raleway', cursive; /* Kekalkan fon yang sama */
-            padding: 0 20px; /* Padding mendatar untuk mengelakkan teks melekat di tepi */
-            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.8em;
+            font-family: 'Raleway', cursive;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <!-- Pembungkus kandungan utama untuk responsif -->
     <div class="content-wrapper">
-        <!-- Menambah jarak atas seperti yang diminta -->
         <br><br><br>
-        <h1>Just a moment...</h1>
+        <h1><strong>Just a moment...</strong></h1>
         <div class="slider">
-            <!-- div.line telah dibuang kerana .slider kini berfungsi sebagai garisan -->
             <div class="break dot1"></div>
             <div class="break dot2"></div>
             <div class="break dot3"></div>
@@ -143,23 +133,23 @@
         <p>We're redirecting you to our new site... Not working? <a href="#" id="redirectLink">Click here.</a></p>
     </div>
 
-    <!-- Skrip untuk penghalaan automatik dan pautan manual -->
     <script src="redirect.js"></script>
     <script>
-        // Ambil URL dari redirect.js dan tetapkan ke pautan manual
-        // Baris ini memastikan pautan 'Click here' akan menghala ke URL yang sama seperti redirect.js
-        fetch('redirect.js')
-            .then(response => response.text())
-            .then(text => {
-                const urlMatch = text.match(/window\.location\.href\s*=\s*["'](.*?)["']/);
-                if (urlMatch && urlMatch[1]) {
-                    document.getElementById('redirectLink').href = urlMatch[1];
-                }
-            })
-            .catch(error => console.error('Error fetching redirect URL:', error));
+        // Dapatkan parameter '1' dari query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const linkParam = urlParams.get('1');
+
+        // Dapatkan senarai URL dari redirect.js
+        // redirectLinks ditakrifkan dalam redirect.js
+        const targetUrl = redirectLinks[linkParam] || 'https://namorima.github.io'; // URL lalai jika parameter tidak sah
+
+        // Tetapkan URL untuk pautan manual
+        document.getElementById('redirectLink').href = targetUrl;
+
+        // Lakukan redirect automatik
+        window.location.href = targetUrl;
     </script>
 
-    <!-- Footer baharu -->
     <footer>
         Made with love from Akmal @ 2025
     </footer>
