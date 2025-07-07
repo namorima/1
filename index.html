@@ -175,11 +175,11 @@
                 redirectMessage.style.display = 'none';
                 linkList.style.display = 'block';
 
-                // Isi senarai pautan daripada redirectLinks
-                for (const [key, url] of Object.entries(redirectLinks)) {
+                // Isi senarai pautan daripada redirectLinks dengan format ?1=...
+                for (const [key] of Object.entries(redirectLinks)) {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
-                    a.href = url;
+                    a.href = `?1=${key}`; // Menghasilkan pautan seperti ?1=drive
                     a.textContent = `${key.charAt(0).toUpperCase() + key.slice(1)} Link`; // Tajuk seperti "Drive Link", "File Link"
                     li.appendChild(a);
                     linkList.appendChild(li);
